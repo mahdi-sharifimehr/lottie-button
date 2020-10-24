@@ -6,7 +6,7 @@ https://www.youtube.com/channel/UCkqNCi8euqXHHMk3XQ4luKw
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
@@ -28,21 +28,27 @@ class App extends Component {
   render() {
     return (
       <View style={styles.body}>
-        <TouchableOpacity
+        <View
           style={styles.buttons}
-          onPress={() => {
-
-          }}
         >
-          <LottieView
-            source={require('./assets/radio.json')}
-            autoPlay
-            loop={false}
-            speed={1.0}
-            onAnimationFinish={() => {
+          <TouchableWithoutFeedback
+            onPress={() => {
+              this.animation.play();
             }}
-          />
-        </TouchableOpacity>
+          >
+            <LottieView
+              ref={animation => {
+                this.animation = animation;
+              }}
+              source={require('./assets/radio.json')}
+              autoPlay
+              loop={false}
+              speed={1.0}
+              onAnimationFinish={() => {
+              }}
+            />
+          </TouchableWithoutFeedback>
+        </View>
       </View>
     );
   }
@@ -56,8 +62,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#2193b0',
   },
   buttons: {
-    width: 100,
-    height: 50,
+    width: 300,
+    height: 100,
     padding: 20,
   },
 });
