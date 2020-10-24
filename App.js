@@ -6,8 +6,10 @@ https://www.youtube.com/channel/UCkqNCi8euqXHHMk3XQ4luKw
 import React, { Component } from 'react';
 import {
   StyleSheet,
+  TouchableOpacity,
   View,
 } from 'react-native';
+import LottieView from 'lottie-react-native';
 
 class App extends Component {
 
@@ -26,7 +28,21 @@ class App extends Component {
   render() {
     return (
       <View style={styles.body}>
-        
+        <TouchableOpacity
+          style={styles.buttons}
+          onPress={() => {
+
+          }}
+        >
+          <LottieView
+            source={require('./assets/radio.json')}
+            autoPlay
+            loop={false}
+            speed={1.0}
+            onAnimationFinish={() => {
+            }}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -39,11 +55,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#2193b0',
   },
-  buttonText: {
-    fontSize: 18,
-    textAlign: 'center',
-    margin: 10,
-    color: '#ffffff',
+  buttons: {
+    width: 100,
+    height: 50,
+    padding: 20,
   },
 });
 
