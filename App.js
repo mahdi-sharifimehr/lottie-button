@@ -16,13 +16,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      radio_on: false,
+      liked: false,
+      submitted: false,
+      submit_loop: false,
     }
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
   }
 
   render() {
@@ -33,19 +31,96 @@ class App extends Component {
         >
           <TouchableWithoutFeedback
             onPress={() => {
-              this.animation.play();
+              this.play_btn.play();
             }}
           >
             <LottieView
               ref={animation => {
-                this.animation = animation;
+                this.play_btn = animation;
+              }}
+              source={require('./assets/play.json')}
+              loop={false}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+        <View
+          style={styles.buttons}
+        >
+          <TouchableWithoutFeedback
+            onPress={() => {
+              if (this.state.radio_on) {
+                this.radio_btn.play(36, 92);
+              } else {
+                this.radio_btn.play(0, 36);
+              }
+              this.setState({ radio_on: !this.state.radio_on })
+            }}
+          >
+            <LottieView
+              ref={animation => {
+                this.radio_btn = animation;
               }}
               source={require('./assets/radio.json')}
-              autoPlay
               loop={false}
-              speed={1.0}
-              onAnimationFinish={() => {
+            />
+          </TouchableWithoutFeedback>
+        </View>
+        <View
+          style={styles.buttons}
+        >
+          <TouchableWithoutFeedback
+            onPress={() => {
+              if (this.state.liked) {
+                this.like_btn.reset()
+                this.setState({ liked: false });
+              } else {
+                this.like_btn.play(20, 60);
+                this.setState({ liked: true });
+              }
+            }}
+          >
+            <LottieView
+              ref={animation => {
+                this.like_btn = animation;
               }}
+              source={require('./assets/like.json')}
+              loop={false}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+        <View
+          style={styles.buttons}
+        >
+          <TouchableWithoutFeedback
+            onPress={() => {
+              if (this.state.submitted) {
+                this.submit_btn.play(0, 1);
+                this.setState({ submitted: false });
+              } else {
+                this.submit_btn.play(0, 68);
+                this.timerHandle1 = setInterval(() => {
+                  this.submit_btn.play(69, 103);
+                  this.setState({ submit_loop: true });
+                  this.timerHandle2 = setInterval(() => {
+                    this.submit_btn.play(104, 180);
+                    this.setState({
+                      submitted: true,
+                      submit_loop: false,
+                    });
+                    clearInterval(this.timerHandle2);
+                  }, 5000);
+                  clearInterval(this.timerHandle1);
+                }, 2000);
+              }
+            }}
+          >
+            <LottieView
+              ref={animation => {
+                this.submit_btn = animation;
+              }}
+              source={require('./assets/submit.json')}
+              loop={this.state.submit_loop}
+              speed={0.5}
             />
           </TouchableWithoutFeedback>
         </View>
@@ -59,12 +134,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     alignItems: 'center',
-    backgroundColor: '#2193b0',
+    backgroundColor: '#ffffff',
   },
   buttons: {
-    width: 300,
-    height: 100,
-    padding: 20,
+    width: 400,
+    height: 150,
   },
 });
 
