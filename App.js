@@ -49,9 +49,9 @@ class App extends Component {
           <TouchableWithoutFeedback
             onPress={() => {
               if (this.state.radio_on) {
-                this.radio_btn.play(36, 92);
+                this.radio_btn.play(37, 92)
               } else {
-                this.radio_btn.play(0, 36);
+                this.radio_btn.play(0, 36)
               }
               this.setState({ radio_on: !this.state.radio_on })
             }}
@@ -71,11 +71,11 @@ class App extends Component {
           <TouchableWithoutFeedback
             onPress={() => {
               if (this.state.liked) {
-                this.like_btn.reset()
-                this.setState({ liked: false });
+                this.like_btn.reset();
+                this.setState({ liked: false })
               } else {
                 this.like_btn.play(20, 60);
-                this.setState({ liked: true });
+                this.setState({ liked: true })
               }
             }}
           >
@@ -95,7 +95,7 @@ class App extends Component {
             onPress={() => {
               if (this.state.submitted) {
                 this.submit_btn.play(0, 1);
-                this.setState({ submitted: false });
+                this.setState({ submitted: false })
               } else {
                 this.submit_btn.play(0, 68);
                 this.timerHandle1 = setInterval(() => {
@@ -106,11 +106,11 @@ class App extends Component {
                     this.setState({
                       submitted: true,
                       submit_loop: false,
-                    });
-                    clearInterval(this.timerHandle2);
-                  }, 5000);
-                  clearInterval(this.timerHandle1);
-                }, 2000);
+                    })
+                    clearInterval(this.timerHandle2)
+                  }, 10000)
+                  clearInterval(this.timerHandle1)
+                }, 2000)
               }
             }}
           >
